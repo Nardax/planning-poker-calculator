@@ -1,16 +1,22 @@
-# Azure Pipelines configuration that builds and packages the extension.
-# To learn more about Azure Pipelines: https://aka.ms/learn-azure-pipelines
+pool:
+  vmImage: 'ubuntu-16.04'
 
-jobs:
-- job: Linux
-  pool:
-    vmImage: 'ubuntu-16.04'
-  steps:
-  - template: azure-pipelines-steps.yml
-
-# - job: Windows
-#   pool:
-#     vmImage: 'vs2017-win2016'
-#   steps:
-#   - template: azure-pipelines-steps.yml
-  
+steps:
+- task: UseNode@1
+  inputs:
+    checkLatest: true
+  displayName: 'Install Node.js'
+- task: Npm@1
+  inputs:
+    command: 'ci'
+  displayName: 'Install dependencies'
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    customCommand: 'run build'
+  displayName: 'Compile and package'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
