@@ -13,7 +13,7 @@ import { OverviewTab } from "./OverviewTab";
 import { NavigationTab } from "./NavigationTab";
 import { ExtensionDataTab } from "./ExtensionDataTab";
 import { MessagesTab } from "./MessagesTab";
-import { showRootComponent } from "../../Common";
+import { showRootComponent } from "../Common";
 
 interface IHubContentState {
     selectedTabId: string;
