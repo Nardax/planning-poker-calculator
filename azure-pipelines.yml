@@ -13,7 +13,7 @@ steps:
 - task: Npm@1
   inputs:
     command: 'custom'
-    customCommand: 'run build'
+    customCommand: 'run build:dev'
   displayName: 'Compile and package'
 - task: PublishBuildArtifacts@1
   inputs:
