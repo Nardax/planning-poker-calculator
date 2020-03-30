@@ -4,7 +4,7 @@
             "id": "sample-breadcrumb-service",
             "type": "ms.vss-web.breadcrumb-provider",
             "targets": [
-                ".hub"
+                ".planning-poker-hub"
             ],
             "properties": {
                 "serviceName": "sample-breadcrumb-service",

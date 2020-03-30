@@ -1,14 +1,33 @@
 import "es6-promise/auto";
 import * as SDK from "azure-devops-extension-sdk";
-import { CommonServiceIds, getClient, IHostPageLayoutService } from "azure-devops-extension-api";
-import { BuildDefinition, BuildRestClient } from "azure-devops-extension-api/Build";
+import { IHostNavigationService, ILocationService, IProjectPageService } from "azure-devops-extension-api";
 
-SDK.register("sample-build-menu", () => {
+SDK.register("planning-poker-context-menu", () => {
     return {
-        execute: async (context: BuildDefinition) => {
-            const result = await getClient(BuildRestClient).getDefinition(context.project.id, context.id, undefined, undefined, undefined, true);
-            const dialogSvc = await SDK.getService<IHostPageLayoutService>(CommonServiceIds.HostPageLayoutService);
-            dialogSvc.openMessageDialog(`Fetched build definition ${result.name}. Latest build: ${JSON.stringify(result.latestBuild)}`, { showCancel: false });
+        execute: async (actionContext: any) => {
+            var extensionContext = SDK.getExtensionContext();
+            let workItemIds: number[] | undefined;
+            if (actionContext.rows) {
+                workItemIds = actionContext.rows.map((row: any[]) => parseInt(row[0], 10));
+            } else {
+                workItemIds = actionContext.workItemIds || [];
+            }
+
+            const projectPageService = await SDK.getService<IProjectPageService>("ms.vss-tfs-web.tfs-page-data-service");
+            const projectInfo = await projectPageService.getProject();
+
+            if (workItemIds && projectInfo) {
+                const locationService = await SDK.getService<ILocationService>("ms.vss-features.location-service");
+                const url = await locationService.routeUrl(
+                    "ms.vss-web.fallback-route-new-platform",
+                    {
+                        project: projectInfo.name,
+                        parameters: `${extensionContext.publisherId}.${extensionContext.extensionId}.planning-poker-hub`
+                    }
+                );
+                const nav = await SDK.getService<IHostNavigationService>("ms.vss-features.host-navigation-service");
+                nav.navigate(`${url}#/create/${workItemIds.join(",")}`);
+            }
         }
     }
 });
