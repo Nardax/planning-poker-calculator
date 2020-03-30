@@ -25,7 +25,7 @@
   "dependencies": {
     "azure-devops-extension-api": "~1.157.0",
     "azure-devops-extension-sdk": "~2.0.11",
-    "azure-devops-ui": "~2.164.0",
+    "azure-devops-ui": "~2.166.1",
     "react": "~16.8.1",
     "react-dom": "~16.8.1"
   },
@@ -37,10 +37,10 @@
     "css-loader": "^1.0.1",
     "file-loader": "~2.0.0",
     "node-sass": "~4.12.0",
-    "rimraf": "^2.7.1",
+    "rimraf": "^3.0.2",
     "sass-loader": "~7.1.0",
     "style-loader": "~0.23.1",
-    "tfx-cli": "^0.6.4",
+    "tfx-cli": "^0.7.11",
     "ts-loader": "~5.2.2",
     "typescript": "^2.9.2",
     "webpack": "^4.42.1",

@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "planningpokercalculator",
     "publisher": "Nardax",
-    "version": "1.0.13",
+    "version": "1.0.14",
     "name": "Planning Poker Calculator",
     "description": "Azure DevOps Extension",
     "categories": [
